@@ -1,11 +1,11 @@
 BeforeAll {
-    . $PSScriptRoot\..\PSTestUtils\Public\Test-PSTUCmdletBinding.ps1
+    . $PSScriptRoot\..\TDDUtils\Public\Test-TDDCmdletBinding.ps1
 }
 
-Describe 'Test-PSTUCmdletBinding' {
+Describe 'Test-TDDCmdletBinding' {
     BeforeAll {
         function CommandUnderTest {
-            Get-Command 'Test-PSTUCmdletBinding'
+            Get-Command 'Test-TDDCmdletBinding'
         }
     }
 
@@ -20,7 +20,7 @@ Describe 'Test-PSTUCmdletBinding' {
     It 'Should return false given a simple function' {
         function SimpleFunction() { }
 
-        Test-PSTUCmdletBinding -Command (Get-Command SimpleFunction) | Should -BeFalse
+        Test-TDDCmdletBinding -Command (Get-Command SimpleFunction) | Should -BeFalse
     }
 
     It 'Should return true given an advanced function' {
@@ -29,7 +29,7 @@ Describe 'Test-PSTUCmdletBinding' {
             param()
         }
 
-        Test-PSTUCmdletBinding -Command (Get-Command AdvancedFunction) | Should -BeTrue
+        Test-TDDCmdletBinding -Command (Get-Command AdvancedFunction) | Should -BeTrue
     }
 
 }

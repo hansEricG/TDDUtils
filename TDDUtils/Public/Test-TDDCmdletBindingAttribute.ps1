@@ -1,4 +1,4 @@
-function Test-PSTUCmdletBindingAttribute {
+function Test-TDDCmdletBindingAttribute {
 <#
 .SYNOPSIS
 Tests whether a command has a CmdletBinding attribute
@@ -17,7 +17,7 @@ Optional. The value of the attribute.
 
 .EXAMPLE
     $command = Get-Command -Name My-Command
-    $supportsShouldProcess = Test-PSTUCmdletBindingAttribute -Command $command -AttributeName 'SupportsShouldProcess'
+    $supportsShouldProcess = Test-TDDCmdletBindingAttribute -Command $command -AttributeName 'SupportsShouldProcess'
 
 .EXAMPLE
 An example from a Pester test perspective:
@@ -30,7 +30,7 @@ function My-Command
 
 It "Should have ConfirmImpact set to High" {
     $c = Get-Command -Name My-Command
-    Test-PSTUCmdletBindingAttribute $c -AttributeName 'ConfirmImpact' -AttributeValue 'High' | Should -BeTrue
+    Test-TDDCmdletBindingAttribute $c -AttributeName 'ConfirmImpact' -AttributeValue 'High' | Should -BeTrue
 }
 
 .LINK

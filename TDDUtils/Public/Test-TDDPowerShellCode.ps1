@@ -1,4 +1,4 @@
-function Test-PSTUPowerShellCode {
+function Test-TDDPowerShellCode {
 <#
 .SYNOPSIS
 Tests a powershell script and returns $true if it contains no syntax errors. 
@@ -13,13 +13,13 @@ The path of the PowerShell script to be checked
 System.Boolean
 
 .EXAMPLE
-Test-PSTUPowerShellCode -Path c:\myscript.ps1
+Test-TDDPowerShellCode -Path c:\myscript.ps1
 
 .EXAMPLE
 An example from a Pester test perspective:
 
 It "Should contain valid PowerShell code" {
-    Test-PSTUPowerShellCode -Path $ModuleRootFile | Should -BeTrue
+    Test-TDDPowerShellCode -Path $ModuleRootFile | Should -BeTrue
 }
 
 .LINK

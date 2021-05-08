@@ -1,4 +1,4 @@
-function Test-PSTUCmdletBinding {
+function Test-TDDCmdletBinding {
 <#
 .SYNOPSIS
 Tests whether a command has Cmdlet binding defined
@@ -11,14 +11,14 @@ The command on which the test should be performed
 
 .EXAMPLE
     $command = Get-Command -Name My-Command
-    $isAdvancedFunction = Test-PSTUCmdletBinding -Command $command
+    $isAdvancedFunction = Test-TDDCmdletBinding -Command $command
 
 .EXAMPLE
 An example from a Pester test perspective:
 
 It "Should be an advanced function" {
     $c = Get-Command -Name My-Command
-    Test-PSTUCmdletBinding $c | Should -BeTrue
+    Test-TDDCmdletBinding $c | Should -BeTrue
 }
 
 .LINK

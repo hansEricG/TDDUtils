@@ -1,11 +1,11 @@
 BeforeAll {
-    . $PSScriptRoot\..\PSTestUtils\Public\Test-PSTUCmdletBindingAttribute.ps1
+    . $PSScriptRoot\..\TDDUtils\Public\Test-TDDCmdletBindingAttribute.ps1
 }
 
-Describe 'Test-PSTUCmdletBindingAttribute' {
+Describe 'Test-TDDCmdletBindingAttribute' {
     BeforeAll {
         function CommandUnderTest {
-            Get-Command 'Test-PSTUCmdletBindingAttribute'
+            Get-Command 'Test-TDDCmdletBindingAttribute'
         }
     }
 
@@ -28,7 +28,7 @@ Describe 'Test-PSTUCmdletBindingAttribute' {
     It 'Should return false given a simple function' {
         function SimpleFunction() { }
 
-        Test-PSTUCmdletBindingAttribute -Command (Get-Command SimpleFunction) -AttributeName 'SomeAttributeName' | Should -BeFalse
+        Test-TDDCmdletBindingAttribute -Command (Get-Command SimpleFunction) -AttributeName 'SomeAttributeName' | Should -BeFalse
     }
 
     It 'Should return false if the attribute does not exist' {
@@ -38,7 +38,7 @@ Describe 'Test-PSTUCmdletBindingAttribute' {
             param()
         }
 
-        Test-PSTUCmdletBindingAttribute -Command (Get-Command AdvancedFunction) -AttributeName 'SomeAttributeName' | Should -BeFalse
+        Test-TDDCmdletBindingAttribute -Command (Get-Command AdvancedFunction) -AttributeName 'SomeAttributeName' | Should -BeFalse
     }
 
     It 'Should return true if the attribute exists on the function' {
@@ -47,7 +47,7 @@ Describe 'Test-PSTUCmdletBindingAttribute' {
             param()
         }
 
-        Test-PSTUCmdletBindingAttribute -Command (Get-Command AdvancedFunction) -AttributeName 'SomeAttributeName' | Should -BeTrue
+        Test-TDDCmdletBindingAttribute -Command (Get-Command AdvancedFunction) -AttributeName 'SomeAttributeName' | Should -BeTrue
     }
 
     It 'Should return true if the attribute has a $true value' {
@@ -56,7 +56,7 @@ Describe 'Test-PSTUCmdletBindingAttribute' {
             param()
         }
 
-        Test-PSTUCmdletBindingAttribute -Command (Get-Command AdvancedFunction) -AttributeName 'SomeAttributeName' | Should -BeTrue
+        Test-TDDCmdletBindingAttribute -Command (Get-Command AdvancedFunction) -AttributeName 'SomeAttributeName' | Should -BeTrue
     }
 
     It 'Should return true if the attribute has a $true value and a $true attribute value' {
@@ -65,7 +65,7 @@ Describe 'Test-PSTUCmdletBindingAttribute' {
             param()
         }
 
-        Test-PSTUCmdletBindingAttribute -Command (Get-Command AdvancedFunction) -AttributeName 'SomeAttributeName' -AttributeValue $true | Should -BeTrue
+        Test-TDDCmdletBindingAttribute -Command (Get-Command AdvancedFunction) -AttributeName 'SomeAttributeName' -AttributeValue $true | Should -BeTrue
     }
 
     It 'Should return false if the attribute has a $false value' {
@@ -74,7 +74,7 @@ Describe 'Test-PSTUCmdletBindingAttribute' {
             param()
         }
 
-        Test-PSTUCmdletBindingAttribute -Command (Get-Command AdvancedFunction) -AttributeName 'SomeAttributeName' | Should -BeFalse
+        Test-TDDCmdletBindingAttribute -Command (Get-Command AdvancedFunction) -AttributeName 'SomeAttributeName' | Should -BeFalse
     }
 
     It 'Should return true if the attribute has a $false value and an AttributeValue of $false is given' {
@@ -83,7 +83,7 @@ Describe 'Test-PSTUCmdletBindingAttribute' {
             param()
         }
 
-        Test-PSTUCmdletBindingAttribute -Command (Get-Command AdvancedFunction) -AttributeName 'SomeAttributeName' -AttributeValue $false | Should -BeTrue
+        Test-TDDCmdletBindingAttribute -Command (Get-Command AdvancedFunction) -AttributeName 'SomeAttributeName' -AttributeValue $false | Should -BeTrue
     }
 
     It 'Should return false if the attribute value differs' {
@@ -92,7 +92,7 @@ Describe 'Test-PSTUCmdletBindingAttribute' {
             param()
         }
 
-        Test-PSTUCmdletBindingAttribute -Command (Get-Command AdvancedFunction) -AttributeName 'SomeAttributeName' -AttributeValue 'Some other valur' | Should -BeFalse
+        Test-TDDCmdletBindingAttribute -Command (Get-Command AdvancedFunction) -AttributeName 'SomeAttributeName' -AttributeValue 'Some other valur' | Should -BeFalse
     }
 
     It 'Should return true if the attribute value is the same' {
@@ -101,6 +101,6 @@ Describe 'Test-PSTUCmdletBindingAttribute' {
             param()
         }
 
-        Test-PSTUCmdletBindingAttribute -Command (Get-Command AdvancedFunction) -AttributeName 'SomeAttributeName' -AttributeValue 'SomeValue' | Should -BeTrue
+        Test-TDDCmdletBindingAttribute -Command (Get-Command AdvancedFunction) -AttributeName 'SomeAttributeName' -AttributeValue 'SomeValue' | Should -BeTrue
     }
 }

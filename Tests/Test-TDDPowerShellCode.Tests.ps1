@@ -1,11 +1,11 @@
 BeforeAll {
-    . $PSScriptRoot\..\PSTestUtils\Public\Test-PSTUPowerShellCode.ps1
+    . $PSScriptRoot\..\TDDUtils\Public\Test-TDDPowerShellCode.ps1
 }
 
-Describe 'Test-PSTUPowerShellCode' {
+Describe 'Test-TDDPowerShellCode' {
     BeforeAll {
         function CommandUnderTest {
-            Get-Command 'Test-PSTUPowerShellCode'
+            Get-Command 'Test-TDDPowerShellCode'
         }
     }
 
@@ -20,20 +20,20 @@ Describe 'Test-PSTUPowerShellCode' {
     It 'Should throw argument exception if Path does not exist' {
         $Path = 'an invalid path'
 
-        { Test-PSTUPowerShellCode -Path $Path } | Should -Throw -ExceptionType ArgumentException
+        { Test-TDDPowerShellCode -Path $Path } | Should -Throw -ExceptionType ArgumentException
     }
 
     It 'Should throw argument exception if Path is not a file' {
         $Path = 'TestDrive:\'
 
-        { Test-PSTUPowerShellCode -Path $Path } | Should -Throw -ExceptionType ArgumentException
+        { Test-TDDPowerShellCode -Path $Path } | Should -Throw -ExceptionType ArgumentException
     }
 
     It 'Should return false if file is empty' {
         $Path = "TestDrive:\\$([System.IO.Path]::GetRandomFileName())"
         New-Item -Path $Path
 
-        Test-PSTUPowerShellCode -Path $Path | Should -BeFalse
+        Test-TDDPowerShellCode -Path $Path | Should -BeFalse
     }
 
     It 'Should return false if file contains invalid powershell code' {
@@ -41,7 +41,7 @@ Describe 'Test-PSTUPowerShellCode' {
         New-Item -Path $Path
         Add-Content -Path $Path -Value "function () { Invalid code"
 
-        Test-PSTUPowerShellCode -Path $Path | Should -BeFalse
+        Test-TDDPowerShellCode -Path $Path | Should -BeFalse
     }
 
     It 'Should return true if file contains valid powershell code' {
@@ -49,6 +49,6 @@ Describe 'Test-PSTUPowerShellCode' {
         New-Item -Path $Path
         Add-Content -Path $Path -Value 'function Valid-PowerShell () { $true }'
 
-        Test-PSTUPowerShellCode -Path $Path | Should -BeTrue
+        Test-TDDPowerShellCode -Path $Path | Should -BeTrue
     }
 }

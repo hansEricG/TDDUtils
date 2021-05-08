@@ -3,12 +3,12 @@ BeforeAll {
     # Info on suppressing PSScriptAnalyzer rules can be found here:
     # https://github.com/PowerShell/PSScriptAnalyzer/blob/master/README.md#suppressing-rules
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseDeclaredVarsMoreThanAssignments', '')]
-    $ModuleName = 'PSTestUtils'
+    $ModuleName = 'TDDUtils'
     [Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseDeclaredVarsMoreThanAssignments', '')]
     $ModulePath = Join-Path $PSScriptRoot ..\$ModuleName\ -Resolve 
 }
 
-Describe 'PSTestUtils Module' {
+Describe 'TDDUtils Module' {
     
     Context 'Setup' {
         It 'Should have a root module file (psm1)' {
@@ -38,7 +38,7 @@ Describe 'PSTestUtils Module' {
         #     $PublicFunctionFiles = Get-Item "$ModulePath/Public/*.ps1"
         # }
 
-        $ModuleName = 'PSTestUtils'
+        $ModuleName = 'TDDUtils'
         $ModulePath = Join-Path $PSScriptRoot ..\$ModuleName\
         $PublicFunctionFiles = Get-Item "$ModulePath/Public/*.ps1"
         foreach ($FunctionFile in $PublicFunctionFiles) {
