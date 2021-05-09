@@ -54,23 +54,5 @@ https://pester.dev/
         $ArgumentValue
     )
 
-    if ($Command.CmdletBinding) {
-        $cmdletBinding = Get-TDDParamBlockAttribute $command 'CmdletBinding'
-        $argument = $cmdletBinding.NamedArguments | where-object { $_.ArgumentName -eq $ArgumentName };
-
-        if ($null -eq $argument) {
-            # Command does not have CmdletBinding argument, return false
-            $false
-        } elseif ($argument.ExpressionOmitted) {
-            $ArgumentValue -eq '' -or $ArgumentValue -eq $true
-        } elseif ($argument.Argument.Extent.Text -eq '$true') {
-            $ArgumentValue -eq '' -or $ArgumentValue -eq $true
-        } elseif ($argument.Argument.Extent.Text -eq '$false') {
-            $ArgumentValue -eq $false
-        } else {
-            $ArgumentValue -eq $argument.Argument.Value
-        }
-    } else {
-        $false
-    }
+    Test-TDDParamBlockAttributeArgument -Command $Command -AttributeName 'CmdletBinding' -ArgumentName $ArgumentName -ArgumentValue $ArgumentValue
 }
