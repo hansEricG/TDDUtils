@@ -1,23 +1,23 @@
-function Test-TDDCmdletBindingAttribute {
+function Test-TDDCmdletBindingArgument {
 <#
 .SYNOPSIS
-Tests whether a command has a CmdletBinding attribute
+Tests whether a command has a CmdletBinding argument
 
 .DESCRIPTION
-Use this command to test if a command has a particular cmdletbinding attribute set, e.g. SupportsShouldProcess.
+Use this command to test if a command has a particular cmdletbinding argument set, e.g. SupportsShouldProcess.
 
 .PARAMETER Command
 The command on which the test should be performed
 
-.PARAMETER AttributeName
-The attribute name to test for
+.PARAMETER ArgumentName
+The argument name to test for
 
-.PARAMETER AttributeValue
-Optional. The value of the attribute.
+.PARAMETER ArgumentValue
+Optional. The value of the argument.
 
 .EXAMPLE
     $command = Get-Command -Name My-Command
-    $supportsShouldProcess = Test-TDDCmdletBindingAttribute -Command $command -AttributeName 'SupportsShouldProcess'
+    $supportsShouldProcess = Test-TDDCmdletBindingArgument -Command $command -ArgumentName 'SupportsShouldProcess'
 
 .EXAMPLE
 An example from a Pester test perspective:
@@ -30,7 +30,7 @@ function My-Command
 
 It "Should have ConfirmImpact set to High" {
     $c = Get-Command -Name My-Command
-    Test-TDDCmdletBindingAttribute $c -AttributeName 'ConfirmImpact' -AttributeValue 'High' | Should -BeTrue
+    Test-TDDCmdletBindingArgument $c -ArgumentName 'ConfirmImpact' -ArgumentValue 'High' | Should -BeTrue
 }
 
 .LINK
@@ -48,10 +48,10 @@ https://pester.dev/
         $Command,
         [Parameter(Mandatory)]
         [string]
-        $AttributeName,
+        $ArgumentName,
         [Parameter()]
         [string]
-        $AttributeValue
+        $ArgumentValue
     )
 
     if ($Command.CmdletBinding) {
@@ -60,19 +60,19 @@ https://pester.dev/
         # https://stackoverflow.com/questions/67264521/how-to-test-that-a-powershell-function-has-a-cmdletbinding-attribute
         $attributes = $command.ScriptBlock.Ast.Body.ParamBlock.Attributes;
         $cmdletBinding = $attributes | where-object { $_.TypeName.FullName -eq "CmdletBinding" };
-        $attribute = $cmdletBinding.NamedArguments | where-object { $_.ArgumentName -eq $AttributeName };
+        $argument = $cmdletBinding.NamedArguments | where-object { $_.ArgumentName -eq $ArgumentName };
 
-        if ($null -eq $attribute) {
-            # Command does not have CmdletBinding attribute, return false
+        if ($null -eq $argument) {
+            # Command does not have CmdletBinding argument, return false
             $false
-        } elseif ($attribute.ExpressionOmitted) {
-            $AttributeValue -eq '' -or $AttributeValue -eq $true
-        } elseif ($attribute.Argument.Extent.Text -eq '$true') {
-            $AttributeValue -eq '' -or $AttributeValue -eq $true
-        } elseif ($attribute.Argument.Extent.Text -eq '$false') {
-            $AttributeValue -eq $false
+        } elseif ($argument.ExpressionOmitted) {
+            $ArgumentValue -eq '' -or $ArgumentValue -eq $true
+        } elseif ($argument.Argument.Extent.Text -eq '$true') {
+            $ArgumentValue -eq '' -or $ArgumentValue -eq $true
+        } elseif ($argument.Argument.Extent.Text -eq '$false') {
+            $ArgumentValue -eq $false
         } else {
-            $AttributeValue -eq $attribute.Argument.Value
+            $ArgumentValue -eq $argument.Argument.Value
         }
     } else {
         $false
