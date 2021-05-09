@@ -1,5 +1,6 @@
 BeforeAll {
     . $PSScriptRoot\..\TDDUtils\Public\Test-TDDCmdletBinding.ps1
+    . $PSScriptRoot\..\TDDUtils\Public\Test-TDDParamBlockAttribute.ps1
 }
 
 Describe 'Test-TDDCmdletBinding' {
@@ -13,7 +14,7 @@ Describe 'Test-TDDCmdletBinding' {
         CommandUnderTest | Should -Not -BeNullOrEmpty
     }
 
-    It 'Should have a Mandatory string parameter: Name' {
+    It 'Should have a Mandatory string parameter: Command' {
         CommandUnderTest | Should -HaveParameter 'Command' -Type 'System.Management.Automation.CommandInfo' -Mandatory
     }
 

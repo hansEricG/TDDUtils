@@ -36,5 +36,5 @@ https://pester.dev/
         $Command
     )
 
-    $Command.CmdletBinding
+    Test-TDDParamBlockAttribute $Command 'CmdletBinding'
 }
