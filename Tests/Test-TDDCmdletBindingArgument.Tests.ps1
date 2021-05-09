@@ -1,5 +1,6 @@
 BeforeAll {
     . $PSScriptRoot\..\TDDUtils\Public\Test-TDDCmdletBindingArgument.ps1
+    . $PSScriptRoot\..\TDDUtils\Private\Get-TDDParamBlockAttribute.ps1
 }
 
 Describe 'Test-TDDCmdletBindingArgument' {

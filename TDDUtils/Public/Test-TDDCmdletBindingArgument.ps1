@@ -55,11 +55,7 @@ https://pester.dev/
     )
 
     if ($Command.CmdletBinding) {
-        # Credit to https://stackoverflow.com/users/3156906/mclayton who influenced this implementation by
-        # answering my question on Stack Overflow:
-        # https://stackoverflow.com/questions/67264521/how-to-test-that-a-powershell-function-has-a-cmdletbinding-attribute
-        $attributes = $command.ScriptBlock.Ast.Body.ParamBlock.Attributes;
-        $cmdletBinding = $attributes | where-object { $_.TypeName.FullName -eq "CmdletBinding" };
+        $cmdletBinding = Get-TDDParamBlockAttribute $command 'CmdletBinding'
         $argument = $cmdletBinding.NamedArguments | where-object { $_.ArgumentName -eq $ArgumentName };
 
         if ($null -eq $argument) {
