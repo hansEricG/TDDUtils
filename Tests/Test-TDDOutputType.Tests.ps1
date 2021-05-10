@@ -1,7 +1,5 @@
 BeforeAll {
     . $PSScriptRoot\..\TDDUtils\Public\Test-TDDOutputType.ps1
-    . $PSScriptRoot\..\TDDUtils\Public\Test-TDDParamBlockAttribute.ps1
-    . $PSScriptRoot\..\TDDUtils\Public\Test-TDDParamBlockAttributeArgument.ps1
     . $PSScriptRoot\..\TDDUtils\Private\Get-TDDParamBlockAttribute.ps1
 }
 
