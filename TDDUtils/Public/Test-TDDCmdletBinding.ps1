@@ -28,6 +28,7 @@ help about_functions_advanced
 https://pester.dev/
 #>
 
+[OutputType([Bool])]
 [CmdletBinding()]
     param (
         # Parameter help description

@@ -1,5 +1,7 @@
 BeforeAll {
     . $PSScriptRoot\..\TDDUtils\Public\Test-TDDPowerShellCode.ps1
+    . $PSScriptRoot\..\TDDUtils\Public\Test-TDDOutputType.ps1
+    . $PSScriptRoot\..\TDDUtils\Private\Get-TDDParamBlockAttribute.ps1
 }
 
 Describe 'Test-TDDPowerShellCode' {
@@ -15,6 +17,10 @@ Describe 'Test-TDDPowerShellCode' {
 
     It 'Should have a Path parameter' {
         CommandUnderTest | Should -HaveParameter 'Path' -Type 'string' -Mandatory
+    }
+
+    It 'Should declare OutputType' {
+        Test-TDDOutputType -Command (CommandUnderTest) -TypeName 'Bool' | Should -BeTrue
     }
 
     It 'Should throw argument exception if Path does not exist' {

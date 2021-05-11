@@ -25,6 +25,7 @@ It "Should contain valid PowerShell code" {
 .LINK
 https://pester.dev/
 #>
+[OutputType([Bool])]
 [CmdletBinding()]
     param (
         [Parameter(Mandatory)]

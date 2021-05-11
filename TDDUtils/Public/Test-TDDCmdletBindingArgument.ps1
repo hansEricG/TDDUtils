@@ -40,7 +40,7 @@ https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.core/abo
 https://pester.dev/
 #>
     [CmdletBinding()]
-    [OutputType([bool])]
+    [OutputType([Bool])]
     param (
         # Parameter help description
         [Parameter(Mandatory)]

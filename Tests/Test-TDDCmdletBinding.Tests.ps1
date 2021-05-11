@@ -1,6 +1,8 @@
 BeforeAll {
     . $PSScriptRoot\..\TDDUtils\Public\Test-TDDCmdletBinding.ps1
     . $PSScriptRoot\..\TDDUtils\Public\Test-TDDParamBlockAttribute.ps1
+    . $PSScriptRoot\..\TDDUtils\Public\Test-TDDOutputType.ps1
+    . $PSScriptRoot\..\TDDUtils\Private\Get-TDDParamBlockAttribute.ps1
 }
 
 Describe 'Test-TDDCmdletBinding' {
@@ -16,6 +18,10 @@ Describe 'Test-TDDCmdletBinding' {
 
     It 'Should have a Mandatory string parameter: Command' {
         CommandUnderTest | Should -HaveParameter 'Command' -Type 'System.Management.Automation.CommandInfo' -Mandatory
+    }
+
+    It 'Should declare OutputType' {
+        Test-TDDOutputType -Command (CommandUnderTest) -TypeName 'Bool' | Should -BeTrue
     }
 
     It 'Should return false given a simple function' {

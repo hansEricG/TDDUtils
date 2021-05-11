@@ -1,6 +1,7 @@
 BeforeAll {
     . $PSScriptRoot\..\TDDUtils\Public\Test-TDDParamBlockAttributeArgument.ps1
     . $PSScriptRoot\..\TDDUtils\Private\Get-TDDParamBlockAttribute.ps1
+    . $PSScriptRoot\..\TDDUtils\Public\Test-TDDOutputType.ps1
 }
 
 Describe 'Test-TDDParamBlockAttributeArgument' {
@@ -28,6 +29,10 @@ Describe 'Test-TDDParamBlockAttributeArgument' {
 
     It 'Should have an ArgumentValue parameter' {
         CommandUnderTest | Should -HaveParameter 'ArgumentValue' -Type 'string'
+    }
+
+    It 'Should declare OutputType' {
+        Test-TDDOutputType -Command (CommandUnderTest) -TypeName 'Bool' | Should -BeTrue
     }
 
     It 'Should return false given a simple function' {

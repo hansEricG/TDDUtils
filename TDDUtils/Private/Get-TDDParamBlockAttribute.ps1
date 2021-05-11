@@ -1,4 +1,5 @@
 function Get-TDDParamBlockAttribute {
+    [OutputType([System.Management.Automation.Language.AttributeAst])]
     param (
         # Parameter help description
         [Parameter(Mandatory)]

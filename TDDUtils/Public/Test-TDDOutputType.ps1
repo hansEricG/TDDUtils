@@ -39,6 +39,7 @@ It "Should have Output type Bool" {
 https://pester.dev/
 #>
 
+    [OutputType([Bool])]
     [CmdletBinding()]
     param (
         # Parameter help description

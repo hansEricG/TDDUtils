@@ -1,6 +1,7 @@
 BeforeAll {
     . $PSScriptRoot\..\TDDUtils\Public\Test-TDDParamBlockAttribute.ps1
     . $PSScriptRoot\..\TDDUtils\Private\Get-TDDParamBlockAttribute.ps1
+    . $PSScriptRoot\..\TDDUtils\Public\Test-TDDOutputType.ps1
 }
 
 Describe 'Test-TDDParamBlockAttribute' {
@@ -20,6 +21,10 @@ Describe 'Test-TDDParamBlockAttribute' {
 
     It 'Should have a AttributeName parameter' {
         CommandUnderTest | Should -HaveParameter 'AttributeName' -Type 'System.string' -Mandatory
+    }
+
+    It 'Should declare OutputType' {
+        Test-TDDOutputType -Command (CommandUnderTest) -TypeName 'Bool' | Should -BeTrue
     }
 
     It 'Should return false if no param block exists' {

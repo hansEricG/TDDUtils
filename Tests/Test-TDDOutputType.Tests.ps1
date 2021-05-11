@@ -1,6 +1,7 @@
 BeforeAll {
     . $PSScriptRoot\..\TDDUtils\Public\Test-TDDOutputType.ps1
     . $PSScriptRoot\..\TDDUtils\Private\Get-TDDParamBlockAttribute.ps1
+    . $PSScriptRoot\..\TDDUtils\Public\Test-TDDOutputType.ps1
 }
 
 Describe 'Test-TDDOutputType' {
@@ -20,6 +21,10 @@ Describe 'Test-TDDOutputType' {
 
     It 'Should have a TypeName parameter' {
         CommandUnderTest | Should -HaveParameter 'TypeName' -Type 'string' -Mandatory
+    }
+
+    It 'Should declare OutputType' {
+        Test-TDDOutputType -Command (CommandUnderTest) -TypeName 'Bool' | Should -BeTrue
     }
 
     It 'Should return false given a simple function' {
