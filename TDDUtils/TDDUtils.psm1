@@ -1,9 +1,13 @@
+# Public functions
 . $PSScriptRoot\Public\Test-TDDCmdletBinding.ps1
 . $PSScriptRoot\Public\Test-TDDCmdletBindingArgument.ps1
 . $PSScriptRoot\Public\Test-TDDOutputType.ps1
 . $PSScriptRoot\Public\Test-TDDParamBlockAttribute.ps1
 . $PSScriptRoot\Public\Test-TDDParamBlockAttributeArgument.ps1
 . $PSScriptRoot\Public\Test-TDDPowerShellCode.ps1
+
+# Private functions
+. $PSScriptRoot\Private\Get-TDDParamBlockAttribute
 
 Export-ModuleMember Test-TDDCmdletBinding
 Export-ModuleMember Test-TDDCmdletBindingArgument
