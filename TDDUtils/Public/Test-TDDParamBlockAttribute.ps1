@@ -10,8 +10,8 @@ function Test-TDDParamBlockAttribute {
     The command on which the test should be performed
     
     .EXAMPLE
-        $command = Get-Command -Name My-Command
-        $isAdvancedFunction = Test-TDDParamBlockAttribute -Command $command -AttributeName 'CmdletBinding'
+    $command = Get-Command -Name My-Command
+    $isAdvancedFunction = Test-TDDParamBlockAttribute -Command $command -AttributeName 'CmdletBinding'
     
     .EXAMPLE
     An example from a Pester test perspective:

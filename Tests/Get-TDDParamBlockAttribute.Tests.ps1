@@ -14,7 +14,7 @@ Describe 'Get-TDDParamBlockAttribute' {
         CommandUnderTest | Should -Not -BeNullOrEmpty
     }
 
-    It 'Should have a Command parameter' {
+    It 'Should have a Mandatory Command parameter' {
         CommandUnderTest | Should -HaveParameter 'Command' -Type 'System.Management.Automation.CommandInfo' -Mandatory
     }
 
