@@ -46,5 +46,8 @@ Describe "My-Command Tests" {
 # Pester
 I have to give a shoutout to the amazing [Pester project](https://github.com/pester/Pester). It's the absolutly best tool to ensure your PowerShell code does what you intended. It's super easy and intuitive to get started with, and if you get into the habit of writing those tests first, you get all the benefits of Test Driven Development.
 
+# mclayton
+Much of the original code in this module was built from the insights I got from Stackoverflow user [mclayton](https://stackoverflow.com/users/3156906/mclayton)'s answer to the [How to test that a powershell function has a cmdletbinding attribute](https://stackoverflow.com/questions/67264521/how-to-test-that-a-powershell-function-has-a-cmdletbinding-attribute) question.
+
 # Adam Driscoll
 Big thank you to [Adam Driscoll](https://github.com/adamdriscoll) whos [How to Publish a PowerShell Module to the PowerShell Gallery tutorial video](https://www.youtube.com/watch?v=TdWWUOJ4s7A) helped a lot when i decided to make TDDUtils publicly available.
