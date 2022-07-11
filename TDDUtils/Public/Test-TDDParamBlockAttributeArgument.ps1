@@ -1,7 +1,7 @@
 function Test-TDDParamBlockAttributeArgument {
     <#
     .SYNOPSIS
-    Tests whether a command has a param block attribute with a given argument
+    Tests whether a command has a param block attribute with a given named argument
     
     .DESCRIPTION
     Use this command to test if a command has an attribute with a given argument defined.
