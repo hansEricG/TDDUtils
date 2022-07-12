@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.2] - 2022-07-12
+
+### Added
+
+- New function: Invoke-TDDInCmdlet
+
+# Changelog
+
 ## [1.0.1] - 2022-07-07
 
 ### Fixed
