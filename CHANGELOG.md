@@ -1,5 +1,15 @@
 # Changelog
 
+## [1.0.3] - 2022-07-12
+
+### Removed
+
+- Removed function Invoke-TDDInCmdlet
+
+# Changelog
+
+- This version was revoked. Do not install it.
+
 ## [1.0.2] - 2022-07-12
 
 ### Added
