@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.0.4] - 2022-07-16
+
+### Added
+
+- New function Test-TDDParameter
+
+# Changelog
+
 ## [1.0.3] - 2022-07-12
 
 ### Removed
