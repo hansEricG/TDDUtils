@@ -33,6 +33,10 @@ Describe 'Test-TDDParameter' {
         CommandUnderTest | Should -HaveParameter 'Mandatory' -Type 'switch'
     }
 
+    It 'Should have an optional switch parameter: Optional' {
+        CommandUnderTest | Should -HaveParameter 'Optional' -Type 'switch'
+    }
+
     It 'Should have an optional string parameter: TypeName' {
         CommandUnderTest | Should -HaveParameter 'TypeName' -Type 'string'
     }
@@ -45,6 +49,12 @@ Describe 'Test-TDDParameter' {
         function FunctionWithNoParameters() { }
 
         Test-TDDParameter -Command (Get-Command FunctionWithNoParameters) -ParameterName 'SomeParameter' | Should -BeFalse
+    }
+
+    It 'Should throw if both -Mandatory and -Optional is given' {
+        function FunctionWithNoParameters() { }
+
+        { Test-TDDParameter -Command (Get-Command FunctionWithNoParameters) -ParameterName 'SomeParameter' -Mandatory -Optional } | Should -Throw -ExceptionType ArgumentException
     }
 
     It 'Should return true if the parameter exists' {
@@ -145,5 +155,67 @@ Describe 'Test-TDDParameter' {
         }
 
         Test-TDDParameter -Command (Get-Command FunctionWithParameter) -ParameterName 'SomeParameter' -ParameterSet 'someset1' | Should -BeTrue
+    }
+
+    It 'Should return false if Mandatory flag is given and Mandatory is not declared for the ParameterSet' {
+        function FunctionWithParameter() { 
+            Param(
+                [Parameter(ParameterSetName='someset1')]
+                [Parameter(Mandatory, ParameterSetName='someset2')]
+                [string]
+                $SomeParameter
+            )
+        }
+
+        Test-TDDParameter -Command (Get-Command FunctionWithParameter) -ParameterName 'SomeParameter' -ParameterSet 'someset1' -Mandatory | Should -BeFalse
+    }
+
+    It 'Should return true if Mandatory flag is given and Mandatory is declared for the ParameterSet' {
+        function FunctionWithParameter() { 
+            Param(
+                [Parameter(ParameterSetName='someset1')]
+                [Parameter(Mandatory, ParameterSetName='someset2')]
+                [string]
+                $SomeParameter
+            )
+        }
+
+        Test-TDDParameter -Command (Get-Command FunctionWithParameter) -ParameterName 'SomeParameter' -ParameterSet 'someset2' -Mandatory | Should -BeTrue
+    }
+
+    It 'Given no Mandatory flag, Should return true even though Mandatory is not declared for the parameter' {
+        function FunctionWithParameter() { 
+            Param(
+                [Parameter(Mandatory)]
+                [string]
+                $SomeParameter
+            )
+        }
+
+        Test-TDDParameter -Command (Get-Command FunctionWithParameter) -ParameterName 'SomeParameter' | Should -BeTrue
+    }
+
+    It 'Given -Optional, Should return false if Mandatory is declared' {
+        function FunctionWithParameter() { 
+            Param(
+                [Parameter(Mandatory)]
+                [string]
+                $SomeParameter
+            )
+        }
+
+        Test-TDDParameter -Command (Get-Command FunctionWithParameter) -ParameterName 'SomeParameter' -Optional | Should -BeFalse
+    }
+
+    It 'Given -Optional and a parameterset, Should return false if Mandatory is declared for that parameterset' {
+        function FunctionWithParameter() { 
+            Param(
+                [Parameter(Mandatory, ParameterSetName='someset')]
+                [string]
+                $SomeParameter
+            )
+        }
+
+        Test-TDDParameter -Command (Get-Command FunctionWithParameter) -ParameterName 'SomeParameter' -ParameterSet 'someset' -Optional | Should -BeFalse
     }
 }

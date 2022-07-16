@@ -22,6 +22,16 @@ This parameter is optional.
 The name of the parameter set of the parameter.
 This parameter is optional.
 
+.PARAMETER Mandatory
+If added to the command call, the command verifies that the parameter under test is declared as mandatory. 
+Note that, if a ParameterSet is given, the command checks that the property is declared mandatory for that PropertySet.
+Also note that this parameter cannot be added together with Optional 
+
+.PARAMETER Optional
+If added to the command call, the command verifies that the parameter under test is not declared as mandatory. 
+Note that, if a ParameterSet is given, the command checks that the property is not declared mandatory for that PropertySet. 
+Also note that this parameter cannot be added together with Mandatory 
+
 .EXAMPLE
     The below code tests wheter My-Command has a string property with the name 'Path', and that it's declared mandatory
 
@@ -53,9 +63,16 @@ function Test-TDDParameter {
         [switch]
         $Mandatory,
 
+        [switch]
+        $Optional,
+
         [string]
         $ParameterSet
     )
+
+    if ($Mandatory -and $Optional) {
+        throw [System.ArgumentException] "Both -Mandatory and -Optional cannot be given, remove one - or both - of them and try again."
+    }
 
     $Parameter = $Command.Parameters[$ParameterName]
     if ($null -eq $Parameter) {
@@ -72,15 +89,35 @@ function Test-TDDParameter {
         }
     }
     
-    if ($Mandatory -And -Not $Parameter.Attributes.Mandatory) {
-        Write-Verbose "The property $PropertyName is not declared Mandatory"
-        return $false
-    }
-
     if ($ParameterSet) {
-        if (-not ($Parameter.ParameterSets.Keys -contains $ParameterSet)) {
+        $ParameterSetFound = $Parameter.ParameterSets[$ParameterSet]
+        if (-not $ParameterSetFound) {
             Write-Verbose "The property $PropertyName has not declared the ParameterSet $ParameterSet"
             return $false
+        }
+
+        if ($Mandatory) {
+            if (-not $ParameterSetFound.IsMandatory) {
+                Write-Verbose "The property $PropertyName has not declared Mandatory for the ParameterSet $ParameterSet"
+                return $false
+            }
+        } elseif ($Optional) {
+            if ($ParameterSetFound.IsMandatory) {
+                Write-Verbose "The property $PropertyName has declared Mandatory for the ParameterSet $ParameterSet"
+                return $false
+            }
+        }
+    } else {
+        if ($Mandatory) {
+            if (-Not $Parameter.Attributes.Mandatory) {
+                Write-Verbose "The property $PropertyName is not declared Mandatory"
+                return $false
+            }
+        } elseif ($Optional) {
+            if ($Parameter.Attributes.Mandatory) {
+                Write-Verbose "The property $PropertyName is declared Mandatory"
+                return $false
+            }
         }
     }
 
