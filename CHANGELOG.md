@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.0.5] - 2026-08-31
+
+### Added
+
+- New function Test-TDDSupportsShouldProcess, which returns true when a command declares SupportsShouldProcess (opts in to -WhatIf and -Confirm).
+
+### Fixed
+
+- Test-TDDParameter (added for 1.0.4) is now dot-sourced and exported by the module manifest; it was previously present in Public but never wired up.
+
+# Changelog
+
 ## [1.0.4] - 2022-07-16
 
 ### Added
