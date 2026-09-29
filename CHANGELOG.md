@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.6] - 2026-09-29
+
+### Fixed
+
+- The module failed to load on Linux and macOS because the root module dot-sourced
+  Private\Get-TDDParamBlockAttribute without its .ps1 extension.
+
 ## [1.0.5] - 2026-08-31
 
 ### Added

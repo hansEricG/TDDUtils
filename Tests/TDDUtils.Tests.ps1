@@ -29,6 +29,17 @@ Describe 'TDDUtils Module' {
             $errors.Count | Should -Be 0
         }
 
+        It 'Should dot-source every file with its .ps1 extension (required on Linux and macOS)' {
+            $dotSourced = Get-Content -Path "$ModulePath\$ModuleName.psm1" | Where-Object { $_ -match '^\s*\.\s+\S' }
+            $dotSourced | Should -Not -BeNullOrEmpty
+            $dotSourced | Where-Object { $_ -notmatch '\.ps1\s*$' } | Should -BeNullOrEmpty
+        }
+
+        It 'Should import the module' {
+            { Import-Module "$ModulePath\$ModuleName.psd1" -Force -ErrorAction Stop } | Should -Not -Throw
+            Get-Command -Module $ModuleName -Name 'Test-TDDCmdletBinding' | Should -Not -BeNullOrEmpty
+        }
+
     }
 
     Context 'Functions'{

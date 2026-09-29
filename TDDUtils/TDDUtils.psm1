@@ -9,7 +9,7 @@
 . $PSScriptRoot\Public\Test-TDDSupportsShouldProcess.ps1
 
 # Private functions
-. $PSScriptRoot\Private\Get-TDDParamBlockAttribute
+. $PSScriptRoot\Private\Get-TDDParamBlockAttribute.ps1
 
 Export-ModuleMember Test-TDDCmdletBinding
 Export-ModuleMember Test-TDDCmdletBindingArgument
